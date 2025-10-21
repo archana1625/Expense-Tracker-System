@@ -4,12 +4,10 @@ import com.expense_tracker.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Optional;
-
 @EnableJpaRepositories
 public interface UserRepository extends JpaRepository<User, Long> {
 
-//     Method to find a user by username
+    // Method to find a user by username
     User findByUsername(String username);
 
     // Method to check if a user exists by username

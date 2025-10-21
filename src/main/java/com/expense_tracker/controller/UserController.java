@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/expenses")
-public class ExpenceTrackerController {
+@RequestMapping("/api/user")
+public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/user")
-    public String ListAllUser() {
-        User user = userService.findUserByUsername("arch123");
-        return user.getUsername();
-    }
+//    @GetMapping("/user")
+//    public String ListAllUser() {
+//        User user = userService.findUserByUsername("arch123");
+//        return user.getUsername();
+//    }
 
     // Register a new user
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public User registerUser(@Valid @RequestBody User user) {
 
         return userService.registerUser(user);
     }
 
     // Get user by username
-    @GetMapping("/user/{username}")
+    @GetMapping("/{username}")
     public User getUserByUsername(@PathVariable String username) {
         return userService.findUserByUsername(username);
     }
 
     // Update user
-    @PutMapping("/user")
+    @PutMapping("/update-user")
     public void updateUser(@Valid @RequestBody User user) {
         userService.updateUser(user);
     }
 
     // Delete user
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
     // Authenticate user (returns true/false)
-    @PostMapping("/user/authenticate")
+    @PostMapping("/authenticate")
     public boolean authenticate(@Valid @RequestBody AuthRequest authRequest) {
         return userService.authenticateUser(authRequest.getUsername(), authRequest.getPassword());
     }

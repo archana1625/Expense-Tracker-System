@@ -33,6 +33,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(com.expense_tracker.exception.ExpenseNotFoundException.class)
+    public ResponseEntity<Object> handleExpenseNotFound(com.expense_tracker.exception.ExpenseNotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", "Expense not found");
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
             HttpHeaders headers,
