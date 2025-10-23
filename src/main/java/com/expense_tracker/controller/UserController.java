@@ -20,12 +20,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    @GetMapping("/user")
-//    public String ListAllUser() {
-//        User user = userService.findUserByUsername("arch123");
-//        return user.getUsername();
-//    }
-
     // Register a new user
     @PostMapping("/register")
     public User registerUser(@Valid @RequestBody User user) {

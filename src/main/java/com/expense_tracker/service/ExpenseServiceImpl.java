@@ -5,9 +5,6 @@ import com.expense_tracker.entity.Expense;
 import com.expense_tracker.exception.ExpenseNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,18 +19,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense addExpense(Expense expense) {
-        Expense exp =  new Expense();
-        exp.setId(expense.getId());
-        exp.setUserId(expense.getUserId());
-        exp.setDate(expense.getDate());
-        exp.setAmount(expense.getAmount());
-        exp.setCategory(expense.getCategory());
-        exp.setDescription(expense.getDescription());
-//        exp.setCreated_at(LocalDateTime.now().withSecond(0).withNano(0));
-//        System.out.println("============================================");
-//        System.out.println(exp.getCreated_at());
-        expenseRepository.save(exp);
-        return exp;
+       return expenseRepository.save(expense);
     }
 
     @Override
@@ -42,13 +28,13 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .orElseThrow(() -> new ExpenseNotFoundException("Expense not found with id: " + expense.getId()));
         existing.setDescription(expense.getDescription());
         existing.setAmount(expense.getAmount());
-        existing.setDate(expense.getDate());
+        existing.setExpenseDate(expense.getExpenseDate());
         existing.setCategory(expense.getCategory());
         return expenseRepository.save(existing);
     }
 
     @Override
-    public void deleteExpense(Integer id) {
+    public void deleteExpense(Long id) {
         if (!expenseRepository.existsById(id)) {
             throw new ExpenseNotFoundException("Expense not found with id: " + id);
         }
@@ -56,7 +42,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense getExpenseById(Integer id) {
+    public Expense getExpenseById(Long id) {
         return expenseRepository.findById(id)
                 .orElseThrow(() -> new ExpenseNotFoundException("Expense not found with id: " + id));
     }

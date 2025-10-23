@@ -12,30 +12,26 @@ import java.util.List;
 @RequestMapping("/api/expenses")
 public class ExpenseController {
 
-    private final ExpenseService expenseService;
-
     @Autowired
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
+    ExpenseService expenseService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Expense addExpense(@Valid @RequestBody Expense expense) {
         return expenseService.addExpense(expense);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public Expense updateExpense(@Valid @RequestBody Expense expense) {
         return expenseService.updateExpense(expense);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExpense(@PathVariable Integer id) {
+    public void deleteExpense(@PathVariable Long id) {
         expenseService.deleteExpense(id);
     }
 
     @GetMapping("/{id}")
-    public Expense getExpense(@PathVariable Integer id) {
+    public Expense getExpense(@PathVariable Long id) {
         return expenseService.getExpenseById(id);
     }
 
