@@ -15,6 +15,11 @@ public class ExpenseController {
     @Autowired
     ExpenseService expenseService;
 
+    @GetMapping("/viewAll")
+    public List<Expense> getAllExpense() {
+        return expenseService.getAllExpenses();
+    }
+
     @PostMapping("/add")
     public Expense addExpense(@Valid @RequestBody Expense expense) {
         return expenseService.addExpense(expense);
